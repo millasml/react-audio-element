@@ -206,21 +206,21 @@ export default function AudioPlayer(props) {
         <div className="time-track">
           <div
             className={`${props.overrideStyles ? "" : "time-text"} ${
-              props.classNames.timeText ? props.classNames.timeText : ""
+                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(time)}
           </div>
           <canvas
             className={`${props.overrideStyles ? "" : "slider-track"} ${
-              props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
+                props.classNames && props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
             }`}
             ref={canvasRef}
             onClick={handleClick}
           ></canvas>
           <div
             className={`${props.overrideStyles ? "" : "time-text"} ${
-              props.classNames.timeText ? props.classNames.timeText : ""
+                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(duration)}
@@ -230,7 +230,7 @@ export default function AudioPlayer(props) {
       <div className="controls">
         <div
           className={`${props.overrideStyles ? "" : "control-button"} ${
-            props.classNames.controlButton ? props.classNames.controlButton : ""
+            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
           }`}
           onClick={() => {
             try {
@@ -248,8 +248,8 @@ export default function AudioPlayer(props) {
           className={`${
             props.overrideStyles ? "" : "control-button play-pause"
           } ${
-            props.classNames.controlButton ? props.classNames.controlButton : ""
-          } ${props.classNames.playPause ? props.classNames.playPause : ""}`}
+            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
+          } ${props.classNames && props.classNames.playPause ? props.classNames.playPause : ""}`}
           onClick={() => {
             if (isPaused) {
               audioRef.current.play();
@@ -266,7 +266,7 @@ export default function AudioPlayer(props) {
         </div>
         <div
           className={`${props.overrideStyles ? "" : "control-button"} ${
-            props.classNames.controlButton ? props.classNames.controlButton : ""
+            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
           }`}
           onClick={() => {
             try {
@@ -285,21 +285,21 @@ export default function AudioPlayer(props) {
         <div className="time-track">
           <div
             className={`${props.overrideStyles ? "" : "time-text"} ${
-              props.classNames.timeText ? props.classNames.timeText : ""
+                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(time)}
           </div>
           <canvas
             className={`${props.overrideStyles ? "" : "slider-track"} ${
-              props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
+                props.classNames && props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
             }`}
             ref={canvasRef}
             onClick={handleClick}
           ></canvas>
           <div
             className={`${props.overrideStyles ? "" : "time-text"} ${
-              props.classNames.timeText ? props.classNames.timeText : ""
+                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(duration)}
