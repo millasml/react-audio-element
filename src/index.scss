@@ -1,0 +1,50 @@
+.audio-player {
+    text-align: center;
+  
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      margin: 2rem 0;
+  
+      .control-button {
+        width: 4rem;
+        height: 4rem;
+        box-shadow: 0 0.75rem 3rem 0 rgba(140, 152, 164, 0.25);
+        border-radius: 50%;
+        background-color: white;
+        line-height: 4rem;
+        font-size: 1.5rem;
+        text-align: center;
+  
+        &.play-pause {
+          width: 6rem;
+          height: 6rem;
+          line-height: 6rem;
+          font-size: 2rem;
+        }
+  
+        &:hover {
+          background-color: whitesmoke;
+        }
+      }
+    }
+  
+    .time-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+      .time-text {
+        width: 80px;
+        display: inline-block;
+      }
+  
+      .slider-track {
+      width: 400px;
+        height: 10px;
+        display: inline-block;
+      }
+    }
+  }
+  
