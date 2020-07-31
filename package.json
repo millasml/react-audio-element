@@ -1,6 +1,6 @@
 {
   "name": "react-audio-element",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "A customizable audio element made using canvas, for react",
   "main": "./lib/index.js",
   "scripts": {
@@ -16,7 +16,8 @@
   "license": "ISC",
   "keywords": [
     "audio",
-    "canvas"
+    "canvas", 
+    "react"
   ],
   "bugs": {
     "url": "https://github.com/millasml/react-audio-element/issues"

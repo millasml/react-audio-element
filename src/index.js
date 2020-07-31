@@ -217,7 +217,7 @@ export default function AudioPlayer(props) {
   };
 
   return (
-    <div className={`${className ? className : ""} audio-player`}>
+    <div className={`${className ? className : ""} react-audio-element`}>
       {sliderTop && (
         <div className="time-track">
           <div
