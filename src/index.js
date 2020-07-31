@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./audio.scss";
+import "./index.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -92,8 +92,8 @@ export default function AudioPlayer(props) {
     timestamps.forEach((timestamp) => {
       if (timestamp.color) {
         context.fillStyle = timestamp.color;
-      } else if (props.color.timestamps) {
-        context.fillStyle = props.color.timestamps;
+      } else if (colors && colors.timestamps) {
+        context.fillStyle = colors.timestamps;
       } else {
         context.fillStyle = "#ffd900";
       }
@@ -186,9 +186,8 @@ export default function AudioPlayer(props) {
     if (timestamps) {
       drawTimestamps();
     }
-
     drawSlider();
-  }, [time]);
+  });
 
   //Function to get the mouse position
   const getMousePos = (event) => {
@@ -218,7 +217,7 @@ export default function AudioPlayer(props) {
   };
 
   return (
-    <div className={`${className ? className : ""} react-audio-element`}>
+    <div className={`${className ? className : ""} audio-player`}>
       {sliderTop && (
         <div className="time-track">
           <div
