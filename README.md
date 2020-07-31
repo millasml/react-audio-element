@@ -1,4 +1,5 @@
 # React Audio Element
+[![npm version](https://img.shields.io/badge/npm-1.0.5-blue)](https://www.npmjs.com/package/react-audio-element)
 
 Styling the embedded audio element is limited. According to MDN,
 
