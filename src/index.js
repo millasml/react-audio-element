@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./index.scss";
+import "./audio.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,6 +13,18 @@ import {
 //cannot add padding to the canvas element
 
 export default function AudioPlayer(props) {
+  const {
+    className,
+    timestamps,
+    src,
+    overrideStyles,
+    classNames,
+    skipSeconds,
+    showHours,
+    sliderTop,
+    colors,
+  } = props;
+
   const canvasRef = useRef(null);
   const audioRef = useRef(null);
 
@@ -32,7 +44,7 @@ export default function AudioPlayer(props) {
   };
 
   const convertTohhMMss = (seconds) => {
-    if (props.showHours) {
+    if (showHours) {
       return new Date(seconds * 1000).toISOString().substr(11, 8);
     } else {
       return new Date(seconds * 1000).toISOString().substr(14, 5);
@@ -61,8 +73,8 @@ export default function AudioPlayer(props) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.fillStyle = "#ebedf0";
-    if (props.colors.sliderTrack) {
-      context.fillStyle = props.colors.sliderTrack;
+    if (colors && colors.sliderTrack) {
+      context.fillStyle = colors.sliderTrack;
     }
     const sliderTrackRect = getSliderTrackRect();
     context.fillRect(
@@ -77,7 +89,7 @@ export default function AudioPlayer(props) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    props.timestamps.forEach((timestamp) => {
+    timestamps.forEach((timestamp) => {
       if (timestamp.color) {
         context.fillStyle = timestamp.color;
       } else if (props.color.timestamps) {
@@ -104,8 +116,8 @@ export default function AudioPlayer(props) {
     gradient.addColorStop(0.47, "rgba(55, 125, 255, 1)");
     gradient.addColorStop(1, "rgba(0, 171, 195, 1)");
     context.fillStyle = gradient;
-    if (props.colors.slider) {
-      context.fillStyle = props.colors.slider;
+    if (colors && colors.slider) {
+      context.fillStyle = colors.slider;
     }
 
     context.fillRect(
@@ -163,13 +175,18 @@ export default function AudioPlayer(props) {
   }, [width, height]);
 
   useEffect(() => {
-    drawTimestamps();
-  }, [props.timestamps]);
+    if (timestamps) {
+      drawTimestamps();
+    }
+  }, [timestamps]);
 
   useEffect(() => {
     clear();
     drawSliderTrack();
-    drawTimestamps();
+    if (timestamps) {
+      drawTimestamps();
+    }
+
     drawSlider();
   }, [time]);
 
@@ -201,26 +218,26 @@ export default function AudioPlayer(props) {
   };
 
   return (
-    <div className={`${props.className ? props.className : ""} audio-player`}>
-      {props.sliderTop && (
+    <div className={`${className ? className : ""} react-audio-element`}>
+      {sliderTop && (
         <div className="time-track">
           <div
-            className={`${props.overrideStyles ? "" : "time-text"} ${
-                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
+            className={`${overrideStyles ? "" : "time-text"} ${
+              classNames && classNames.timeText ? classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(time)}
           </div>
           <canvas
-            className={`${props.overrideStyles ? "" : "slider-track"} ${
-                props.classNames && props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
+            className={`${overrideStyles ? "" : "slider-track"} ${
+              classNames && classNames.sliderTrack ? classNames.sliderTrack : ""
             }`}
             ref={canvasRef}
             onClick={handleClick}
           ></canvas>
           <div
-            className={`${props.overrideStyles ? "" : "time-text"} ${
-                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
+            className={`${overrideStyles ? "" : "time-text"} ${
+              classNames && classNames.timeText ? classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(duration)}
@@ -229,14 +246,14 @@ export default function AudioPlayer(props) {
       )}
       <div className="controls">
         <div
-          className={`${props.overrideStyles ? "" : "control-button"} ${
-            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
+          className={`${overrideStyles ? "" : "control-button"} ${
+            classNames && classNames.controlButton
+              ? classNames.controlButton
+              : ""
           }`}
           onClick={() => {
             try {
-              audioRef.current.currentTime -= props.skipSeconds
-                ? props.skipSeconds
-                : 10.0;
+              audioRef.current.currentTime -= skipSeconds ? skipSeconds : 10.0;
             } catch (e) {
               console.log(e);
             }
@@ -245,11 +262,11 @@ export default function AudioPlayer(props) {
           <FontAwesomeIcon icon={faStepBackward} />
         </div>
         <div
-          className={`${
-            props.overrideStyles ? "" : "control-button play-pause"
-          } ${
-            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
-          } ${props.classNames && props.classNames.playPause ? props.classNames.playPause : ""}`}
+          className={`${overrideStyles ? "" : "control-button play-pause"} ${
+            classNames && classNames.controlButton
+              ? classNames.controlButton
+              : ""
+          } ${classNames && classNames.playPause ? classNames.playPause : ""}`}
           onClick={() => {
             if (isPaused) {
               audioRef.current.play();
@@ -265,14 +282,14 @@ export default function AudioPlayer(props) {
           )}
         </div>
         <div
-          className={`${props.overrideStyles ? "" : "control-button"} ${
-            props.classNames && props.classNames.controlButton ? props.classNames.controlButton : ""
+          className={`${overrideStyles ? "" : "control-button"} ${
+            classNames && classNames.controlButton
+              ? classNames.controlButton
+              : ""
           }`}
           onClick={() => {
             try {
-              audioRef.current.currentTime += props.skipSeconds
-                ? props.skipSeconds
-                : 10.0;
+              audioRef.current.currentTime += skipSeconds ? skipSeconds : 10.0;
             } catch (e) {
               console.log(e);
             }
@@ -281,32 +298,32 @@ export default function AudioPlayer(props) {
           <FontAwesomeIcon icon={faStepForward} />
         </div>
       </div>
-      {!props.sliderTop && (
+      {!sliderTop && (
         <div className="time-track">
           <div
-            className={`${props.overrideStyles ? "" : "time-text"} ${
-                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
+            className={`${overrideStyles ? "" : "time-text"} ${
+              classNames && classNames.timeText ? classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(time)}
           </div>
           <canvas
-            className={`${props.overrideStyles ? "" : "slider-track"} ${
-                props.classNames && props.classNames.sliderTrack ? props.classNames.sliderTrack : ""
+            className={`${overrideStyles ? "" : "slider-track"} ${
+              classNames && classNames.sliderTrack ? classNames.sliderTrack : ""
             }`}
             ref={canvasRef}
             onClick={handleClick}
           ></canvas>
           <div
-            className={`${props.overrideStyles ? "" : "time-text"} ${
-                props.classNames && props.classNames.timeText ? props.classNames.timeText : ""
+            className={`${overrideStyles ? "" : "time-text"} ${
+              classNames && classNames.timeText ? classNames.timeText : ""
             }`}
           >
             {convertTohhMMss(duration)}
           </div>
         </div>
       )}
-      <audio ref={audioRef} src={props.src}></audio>
+      <audio ref={audioRef} src={src ? src : ""}></audio>
     </div>
   );
 }
