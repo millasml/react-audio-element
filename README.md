@@ -114,7 +114,7 @@ in css:
 ```
 
 Outcome:
-![OverridingStyles](./assets/classnames.png)
+![OverridingStyles](./assets/override.png)
 
 
 You have to set overrideStyles to true if you want more perdictable behavior.
